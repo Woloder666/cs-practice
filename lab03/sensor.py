@@ -5,7 +5,7 @@ errors = 0
 exceedings = 0
 total = 0.0
 correct = 0
-
+# First valid measurement becomes the initial maximum
 has_max = False
 max_temp = 0.0
 
