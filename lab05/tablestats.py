@@ -59,3 +59,13 @@ def to_csv(counts: dict) -> str:
         result += kind + "," + str(counts[kind]) + "\n"
 
     return result
+
+if __name__ == "__main__":
+    from pathlib import Path
+
+    folder = Path(__file__).parent
+
+    with open(folder / "events.csv", encoding="utf-8") as table:
+        rows = read_rows(table)
+
+    print(total_minutes(rows, "ошибка"))
