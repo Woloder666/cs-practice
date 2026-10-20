@@ -7,3 +7,27 @@ def count_items(values: list) -> dict:
 
 def unique_sorted(values: list) -> list:
     return sorted(set(values))
+
+
+def common(first: list, second: list) -> list:
+    return sorted(set(first) & set(second))
+
+
+def only_in_first(first: list, second: list) -> list:
+    return sorted(set(first) - set(second))
+
+
+if __name__ == "__main__":
+    values = ["ошибка", "запуск", "ошибка", "проверка"]
+    first = ["иванов", "петрова"]
+    second = ["петрова", "котов"]
+
+    assert count_items([]) == {}
+    assert unique_sorted([]) == []
+    assert common([], second) == []
+    assert only_in_first([], second) == []
+
+    print(count_items(values))
+    print(unique_sorted(values))
+    print(common(first, second))
+    print(only_in_first(first, second))
