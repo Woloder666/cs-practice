@@ -1,41 +1,36 @@
 import numpy as np
 
-
 def reshape_rows(values: list[float], width: int) -> list[list[float]]:
     if width <= 0 or len(values) % width != 0:
         return []
-    array = np.asarray(values, dtype=float)
-    return array.reshape(-1, width).round(6).tolist()
+
+    data = np.asarray(values, dtype=float)
+    table = data.reshape(-1, width)
+    return np.round(table, 6).tolist()
 
 
 def block(matrix: list[list[float]], rows: list[int], columns: list[int]) -> list[list[float]]:
-    array = np.asarray(matrix, dtype=float)
-    if array.size == 0:
+    if not matrix: 
         return []
-    return array[np.ix_(rows, columns)].round(6).tolist()
+
+    data = np.asarray(matrix, dtype=float)
+    selected = data[np.ix_(rows, columns)]
+    return np.round(selected, 6).tolist()
 
 
 def column_means(matrix: list[list[float]]) -> list[float]:
-    array = np.asarray(matrix, dtype=float)
-    if array.size == 0:
+    if not matrix: 
         return []
-    return array.mean(axis=0).round(6).tolist()
+        
+    data = np.asarray(matrix, dtype=float)
+    means = data.mean(axis=0)
+    return np.round(means, 6).tolist()
 
 
 def column_range(matrix: list[list[float]], column: int) -> float:
-    array = np.asarray(matrix, dtype=float)
-    if array.size == 0:
+    if not matrix: 
         return 0.0
-    values = array[:, column]
-    return round(float(values.max() - values.min()), 6)
+    data = np.asarray(matrix, dtype=float)
 
-
-if __name__ == "__main__":
-    assert reshape_rows([1, 2, 3], 2) == []
-    assert column_means([]) == []
-    assert column_range([], 0) == 0.0
-
-    print(reshape_rows([12, 14.5, 11, 13, 15.5, 10.5], 3))
-    print(block([[1, 2, 3], [4, 5, 6], [7, 8, 9]], [0, 2], [1, 2]))
-    print(column_means([[1, 2], [3, 4], [5, 6]]))
-    print(column_range([[1, 2], [5, 7]], 1))
+    values = data[:, column]
+    return float(np.round(values.max() - values.min(), 6))
